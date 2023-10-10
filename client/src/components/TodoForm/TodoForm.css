@@ -1,0 +1,18 @@
+.card > form > div {
+  margin-bottom: 5px;
+} 
+
+.card > form > .description {
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 3em;
+  max-height: 7em;
+  height: 5em;
+  background-color: rgb(255, 255, 255);
+}
+
+.card * input {
+  font-size: large;
+  font-family: inherit;
+}

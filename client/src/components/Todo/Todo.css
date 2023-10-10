@@ -1,0 +1,11 @@
+.todo>h1 {
+  min-width: 400px;
+  margin-top: 0;
+  text-align: center;
+}
+
+.todo>header {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}

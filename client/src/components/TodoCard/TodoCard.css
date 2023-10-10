@@ -1,0 +1,57 @@
+.card {
+  display: flex;
+  min-width: 300px;
+  width: 500px;
+  margin: 5px auto;
+  padding: 1em;
+  border: 2px #555 solid;
+  border-color: rgb(85, 85, 85);
+  border-radius: 20px;
+  background: antiquewhite;
+  
+}
+.card-header  {
+  border-bottom:  1px #aaa solid;
+  font-weight: bold;
+}
+
+.card > form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 100%;
+  list-style-type: none;
+}
+
+.card * textarea {
+  max-width: 100%;
+  max-height: 5em;
+  background-color: inherit;
+  font-size: large;
+  font-family: inherit;
+  
+}
+
+.btn-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.card-btn {
+  width: inherit;
+  margin: 0;
+  padding: 5px 15px;
+  height: inherit;
+  border-radius: 4px;
+  border: 1px #615a51 solid;
+  font-size: large;
+  font-weight: bold;
+}
+.card-btn:hover {
+  background-color: rgb(151, 144, 132);
+  color:#faebd7;
+  cursor: pointer;
+}
+
+.card-btn:first-child {
+  margin-right: 20px;
+}

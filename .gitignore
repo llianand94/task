@@ -1,0 +1,10 @@
+# Ignore Node.js modules
+node_modules/
+
+# Ignore build and bundle files for the client
+/client/build/
+/client/node_modules/
+
+# Ignore build and dist files for the server
+/server/dist/
+/server/node_modules/
