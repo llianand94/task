@@ -8,3 +8,5 @@ node_modules/
 # Ignore build and dist files for the server
 /server/dist/
 /server/node_modules/
+
+task-service.iml
