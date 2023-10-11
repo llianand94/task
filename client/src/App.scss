@@ -1,0 +1,8 @@
+@import "./common/styles/variables";
+
+.App {
+  width: 750px;
+  margin: 0 auto;
+  padding: 10px 0;
+  background-color: $body-color;
+}

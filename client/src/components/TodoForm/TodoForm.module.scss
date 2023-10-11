@@ -1,0 +1,30 @@
+@import "../../common/styles/templates";
+
+.form-wrapper {
+  @include card;
+}
+
+.form-wrapper > form > * {
+  width: 100%;
+  margin-bottom: 5px;
+} 
+
+.description {
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 3em;
+  max-height: 7em;  
+  background-color: $text-area-color;
+
+  height: 5em;
+}
+
+.form-wrapper * input {
+  font-size: large;
+  font-family: inherit;
+}
+
+.submit-btn {
+  @include common-btn;
+}

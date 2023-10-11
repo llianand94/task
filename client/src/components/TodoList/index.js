@@ -1,7 +1,7 @@
 import React from 'react'
 import TodoCard from '../TodoCard'
 import TodoForm from '../TodoForm'
-import './TodoList.css'
+import styles from './TodoList.module.scss'
 
 const TodoList = ({
   tasks,
@@ -12,7 +12,7 @@ const TodoList = ({
   onDeleteHandler
 }) => {
   return (
-    <ol className='list'>
+    <ol className={styles.list}>
       {isCreate && (
         <TodoForm setCreate={setCreate} onCreateHandler={onCreateHandler}/>
       )}
@@ -27,9 +27,5 @@ const TodoList = ({
     </ol>
   )
 }
-
-// TodoList.propTypes = {
-//   tasks: []
-// };
 
 export default TodoList

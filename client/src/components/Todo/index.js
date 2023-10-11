@@ -1,4 +1,4 @@
-import './Todo.css'
+import styles from './Todo.module.scss'
 import React, { useEffect, useState } from 'react'
 import TodoList from '../TodoList'
 import CreateTodo from '../CreateTodo'
@@ -14,7 +14,7 @@ const Todo = () => {
   const [itemToDelete, setItemToDelete] = useState(null)
 
   useEffect(() => {
-    const url = 'http://localhost:5000/api/tasks'
+    const url = process.env.REACT_APP_BACK_URL;
 
     if (itemToCreate) {
       fetch(url, {
@@ -69,13 +69,13 @@ const Todo = () => {
   const onDeleteHandler = id => setItemToDelete(id)
 
   return (
-    <div className='todo'>
-      <header>
-        <h1 className='header'> TO-DO List</h1>
+    <div className={styles.todo}>
+      <header className={styles.header}>
+        <h1 > TO-DO List</h1>
         <CreateTodo addButton={addButton} />
       </header>
 
-      <div className='wrapper'>
+      <div>
         {isFetching && (
           <p style={{ textAlign: 'center', fontSize: '1.5em' }}>loading ...</p>
         )}

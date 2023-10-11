@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './TodoForm.css'
+import styles from './TodoForm.module.scss'
 import CONSTANTS from '../../common/constants'
 import DataList from '../DataList'
 
@@ -29,7 +29,7 @@ function TodoForm ({ onCreateHandler, setCreate }) {
   }
 
   return (
-    <li className='card'>
+    <li className={styles["form-wrapper"]}>
       <form onSubmit={handleSubmit}>
         <DataList array={CONSTANTS.existedTags} id='tags' />
 
@@ -41,7 +41,7 @@ function TodoForm ({ onCreateHandler, setCreate }) {
           required
         />
         <textarea
-          className='description'
+          className={styles.description}
           value={description}
           placeholder='Description(optional)'
           onChange={e => setDescription(e.target.value)}
@@ -52,13 +52,7 @@ function TodoForm ({ onCreateHandler, setCreate }) {
           list='tags'
           onChange={e => setTags([e.target.value])}
         />
-        {/* <input
-            type='text'
-            value={userId}
-            placeholder='User ID (optional)'
-            onChange={e => setUserID(e.target.value)}
-          /> */}
-        <button className='card-btn' type='submit'>
+        <button className={styles['submit-btn']} type='submit'>
           Add Todo
         </button>
       </form>

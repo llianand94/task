@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './TodoCard.css'
+import styles from './TodoCard.module.scss'
 import DataList from '../DataList'
 import CONSTANTS from '../../common/constants.js'
 
@@ -10,7 +10,7 @@ const TodoCard = ({ item, onEditHandler, onDeleteHandler }) => {
   const [status, setStatus] = useState(item.status)
   const [tags, setTags] = useState(item.tags)
 
-  const editHandler = (e) => {
+  const editHandler = e => {
     e.preventDefault()
 
     const value = document.getElementById('edit-btn').textContent
@@ -32,13 +32,13 @@ const TodoCard = ({ item, onEditHandler, onDeleteHandler }) => {
   }
 
   return (
-    <li className='card'>
+    <li className={styles.card}>
       <form>
         <DataList array={CONSTANTS.existedTags} id='tags' />
         <DataList array={CONSTANTS.existedStatuses} id='statuses' />
 
         <textarea
-          className='card-header'
+          className={styles['card-header']}
           disabled={!editable}
           value={title}
           onChange={e => setTitle(e.target.value)}
@@ -50,12 +50,16 @@ const TodoCard = ({ item, onEditHandler, onDeleteHandler }) => {
           onChange={e => setDescription(e.target.value)}
         ></textarea>
 
-        <div className='btn-wrapper'>
-          <button id='edit-btn' className='card-btn' onClick={editHandler}>
+        <div className={styles['btn-wrapper']}>
+          <button
+            id='edit-btn'
+            className={styles['card-btn']}
+            onClick={editHandler}
+          >
             {!editable ? 'Edit' : 'Save'}
           </button>
           <button
-            className='card-btn'
+            className={styles['card-btn']}
             onClick={() => onDeleteHandler(item._id)}
           >
             Delete
@@ -65,7 +69,8 @@ const TodoCard = ({ item, onEditHandler, onDeleteHandler }) => {
         <p>
           Date of creation: {new Date(item.createdAt).toLocaleString()}
           <br></br>
-          {item.updatedAt && `Updated : ${new Date(item.updatedAt).toLocaleString()}`}
+          {item.updatedAt &&
+            `Updated : ${new Date(item.updatedAt).toLocaleString()}`}
         </p>
         <label>
           {' '}

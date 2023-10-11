@@ -1,5 +1,5 @@
 import React from 'react';
-import './CreateTodo.css';
+import './CreateTodo.scss';
 
 const CreateTodo = ({ addButton }) => {
   return (

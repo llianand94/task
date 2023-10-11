@@ -1,0 +1,41 @@
+@import "../../common/styles/variables";
+@import "../../common/styles/templates";
+
+.card {
+  @include card;
+  & > form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 100%;    
+  }
+
+  & * textarea {
+    max-width: 100%;
+    max-height: 5em;
+    margin-bottom: 5px;
+    background-color: inherit;
+    color: inherit;
+  }
+  & * label {
+    margin: 0 15px 0 auto;
+  }
+}
+.card-header  {
+  border-bottom:  1px $background-color solid;
+  font-weight: bold;
+}
+
+.btn-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.card-btn {
+  @include common-btn;
+  margin: 0;
+
+  &:first-child {
+    margin-right: 20px;
+  }
+}

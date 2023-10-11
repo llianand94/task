@@ -1,0 +1,12 @@
+@import "../../common/styles/variables";
+@import "../../common/styles/templates";
+.add-btn {
+  padding: 15px;
+  margin-right: 0;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: large;
+  &:hover {
+    @include btn-hover;
+  }
+}
