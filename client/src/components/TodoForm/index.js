@@ -2,12 +2,21 @@ import React, { useState } from 'react'
 import styles from './TodoForm.module.scss'
 import CONSTANTS from '../../common/constants'
 import DataList from '../DataList'
+import { postTask } from '../../api/taskApi'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 function TodoForm ({ onCreateHandler, setCreate }) {
   const [title, setTitle] = useState('Title')
   const [description, setDescription] = useState('')
   const [tags, setTags] = useState([])
   const [userId, setUserID] = useState('')
+
+  const queryClient = useQueryClient()
+  const createTaskMutation = useMutation(postTask, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('tasks')
+    }
+  })
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -19,7 +28,7 @@ function TodoForm ({ onCreateHandler, setCreate }) {
       userId: userId ? userId : undefined
     }
 
-    onCreateHandler(newTodo)
+    createTaskMutation.mutate(newTodo)
     setCreate(false)
 
     setTitle('Title')
@@ -29,7 +38,7 @@ function TodoForm ({ onCreateHandler, setCreate }) {
   }
 
   return (
-    <li className={styles["form-wrapper"]}>
+    <li className={styles['form-wrapper']}>
       <form onSubmit={handleSubmit}>
         <DataList array={CONSTANTS.existedTags} id='tags' />
 

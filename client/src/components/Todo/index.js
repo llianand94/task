@@ -1,92 +1,41 @@
 import styles from './Todo.module.scss'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import TodoList from '../TodoList'
 import CreateTodo from '../CreateTodo'
+import { getTasks } from '../../api/taskApi'
+import { useQuery } from '@tanstack/react-query'
 
 const Todo = () => {
-  const [tasks, setTasks] = useState([])
   const [isCreate, setCreate] = useState(false)
-  const [isFetching, setIsFetching] = useState(true)
-  const [sortOrder, setSortOrder] = useState('DESC')
-
-  const [itemToCreate, setItemToCreate] = useState(null)
-  const [itemToEdit, setItemToEdit] = useState(null)
-  const [itemToDelete, setItemToDelete] = useState(null)
-
-  useEffect(() => {
-    const url = process.env.REACT_APP_BACK_URL;
-
-    if (itemToCreate) {
-      fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(itemToCreate)
-      })
-        .then(d => d.json())
-        .then(d => setItemToCreate(null))
-    }
-
-    if (itemToEdit) {
-      fetch(url, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(itemToEdit)
-      })
-        .then(d => d.json())
-        .then(d => setItemToEdit(null))
-    }
-
-    if (itemToDelete) {
-      fetch(`${url}/${itemToDelete}`, { method: 'DELETE' })
-        .then(d => d.json())
-        .then(d => setItemToDelete(null))
-    }
-
-    fetch(url)
-      .then(d => d.json())
-      .then(d => {
-        setTasks(
-          d.sort((a, b) => {
-            a = new Date(a.createdAt).valueOf()
-            b = new Date(b.createdAt).valueOf()
-
-            return sortOrder === 'ASC' ? a - b : b - a
-          })
-        )
-        setIsFetching(false)
-      })
-      .catch(e => console.log(e))
-    return () => tasks
-  }, [sortOrder, itemToCreate, itemToEdit, itemToDelete])
+  const {
+    data: tasks,
+    isLoading,
+    isError,
+    error
+  } = useQuery(['tasks'], getTasks, {
+    staleTime: 30000,
+    select: data =>
+      data.sort(
+        (a, b) =>
+          new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
+      )
+  })
 
   const addButton = () => setCreate(!isCreate)
-  const onCreateHandler = newTask => setItemToCreate(newTask)
-  const onEditHandler = editedTask => setItemToEdit(editedTask)
-  const onDeleteHandler = id => setItemToDelete(id)
+  if (isError) return <span>`Error: ${error.message}`</span>
 
   return (
     <div className={styles.todo}>
       <header className={styles.header}>
-        <h1 > TO-DO List</h1>
+        <h1> TO-DO List</h1>
         <CreateTodo addButton={addButton} />
       </header>
 
       <div>
-        {isFetching && (
-          <p style={{ textAlign: 'center', fontSize: '1.5em' }}>loading ...</p>
+        {isLoading && <p className={styles.loading}>loading ...</p>}
+        {!isLoading && (
+          <TodoList tasks={tasks} isCreate={isCreate} setCreate={setCreate} />
         )}
-        <TodoList
-          tasks={tasks}
-          isCreate={isCreate}
-          setCreate={setCreate}
-          onCreateHandler={onCreateHandler}
-          onEditHandler={onEditHandler}
-          onDeleteHandler={onDeleteHandler}
-        />
       </div>
     </div>
   )

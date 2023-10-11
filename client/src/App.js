@@ -1,12 +1,17 @@
-import './App.scss';
-import Todo from './components/Todo';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import './App.scss'
+import Todo from './components/Todo'
 
-function App() {
+const queryClient = new QueryClient();
+
+function App () {
   return (
-    <div className="App">
-    <Todo/>
+    <div className='App'>
+      <QueryClientProvider client={queryClient}>
+        <Todo />
+      </QueryClientProvider>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

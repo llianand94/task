@@ -7,21 +7,16 @@ const TodoList = ({
   tasks,
   isCreate,
   setCreate,
-  onCreateHandler,
-  onEditHandler,
-  onDeleteHandler
 }) => {
   return (
     <ol className={styles.list}>
       {isCreate && (
-        <TodoForm setCreate={setCreate} onCreateHandler={onCreateHandler}/>
+        <TodoForm setCreate={setCreate} />
       )}
       {tasks.map(item => (
         <TodoCard
           item={item}
           key={item._id}
-          onEditHandler={onEditHandler}
-          onDeleteHandler={onDeleteHandler}
         />
       ))}
     </ol>

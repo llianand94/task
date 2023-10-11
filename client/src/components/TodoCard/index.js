@@ -2,21 +2,36 @@ import React, { useState } from 'react'
 import styles from './TodoCard.module.scss'
 import DataList from '../DataList'
 import CONSTANTS from '../../common/constants.js'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { deleteTask, updateTask } from '../../api/taskApi'
 
-const TodoCard = ({ item, onEditHandler, onDeleteHandler }) => {
+const TodoCard = ({ item }) => {
   const [editable, setEditable] = useState(false)
   const [title, setTitle] = useState(item.title)
   const [description, setDescription] = useState(item.description)
   const [status, setStatus] = useState(item.status)
   const [tags, setTags] = useState(item.tags)
 
-  const editHandler = e => {
+  const queryClient = useQueryClient()
+  const updateTaskMutation = useMutation(updateTask, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('tasks')
+    }
+  })
+  const deleteTaskMutation = useMutation(deleteTask, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('tasks')
+    }
+  })
+
+  const editHandler = (e) => {
     e.preventDefault()
 
     const value = document.getElementById('edit-btn').textContent
     if (
       value === 'Save' &&
       (title !== item.title ||
+        tags !== item.tags ||
         description !== item.description ||
         status !== item.status)
     ) {
@@ -24,11 +39,18 @@ const TodoCard = ({ item, onEditHandler, onDeleteHandler }) => {
         id: item._id,
         title,
         description,
+        tags,
         status
       }
-      onEditHandler(editedTask)
+      updateTaskMutation.mutate(editedTask)
     }
     setEditable(!editable)
+  }
+
+  const deleteHandler = (e) => {
+    e.preventDefault()
+    
+    deleteTaskMutation.mutate(item._id)
   }
 
   return (
@@ -60,7 +82,7 @@ const TodoCard = ({ item, onEditHandler, onDeleteHandler }) => {
           </button>
           <button
             className={styles['card-btn']}
-            onClick={() => onDeleteHandler(item._id)}
+            onClick={deleteHandler}
           >
             Delete
           </button>
