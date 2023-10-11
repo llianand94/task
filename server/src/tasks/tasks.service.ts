@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Task } from "../schemas/task.schema";
@@ -10,7 +10,11 @@ export class TasksService {
   constructor(@InjectModel(Task.name) private taskModel: Model<Task>) {}
 
   async createTask(dto: CreateTaskDto) {
-    return await this.taskModel.create(dto);
+    try {
+      return await this.taskModel.create({ ...dto, createdAt: new Date() });
+    } catch (e) {
+      throw new BadRequestException(e.message);
+    }
   }
 
   async getListOfTasks() {
