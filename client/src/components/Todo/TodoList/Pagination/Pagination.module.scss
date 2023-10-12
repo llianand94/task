@@ -1,0 +1,17 @@
+@import "../../../../common/styles/templates";
+@import "../../../../common/styles/variables";
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  @include list-style;
+
+  .active .page-link{
+    background-color: $selected-color;
+  }
+
+  .page-link {
+    @include common-btn;
+  }
+}

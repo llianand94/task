@@ -1,27 +1,27 @@
 import styles from './Todo.module.scss'
 import React, { useState } from 'react'
 
-
 import { getTasks } from '../../api/taskApi'
 import { useQuery } from '@tanstack/react-query'
 import TodoList from './TodoList'
 import CreateTodoBtn from './CreateTodoBtn'
 
 const Todo = () => {
+  const [limit, setLimit] = useState(2) //totalTasksOnPage
+  const [offset, setOffset] = useState(0)
   const [isCreate, setCreate] = useState(false)
+  
   const {
     data: tasks,
     isLoading,
     isError,
     error
-  } = useQuery(['tasks'], getTasks, {
-    staleTime: 30000,
-    select: data =>
-      data.sort(
-        (a, b) =>
-          new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
-      )
+  } = useQuery(['tasks', limit, offset], () => getTasks(limit, offset), {
+    keepPreviousData: true
   })
+
+  const handleLimit = num => setLimit(num)
+  const handleOffset = num => setOffset(num)
 
   const addButton = () => setCreate(!isCreate)
   if (isError) return <span>`Error: ${error.message}`</span>
@@ -33,12 +33,20 @@ const Todo = () => {
         <CreateTodoBtn addButton={addButton} />
       </header>
 
-      <div>
+      <section>
         {isLoading && <p className={styles.loading}>loading ...</p>}
         {!isLoading && (
-          <TodoList tasks={tasks} isCreate={isCreate} setCreate={setCreate} />
+          <TodoList
+            tasks={tasks}
+            limit={limit}
+            offset={offset}
+            onLimitChange={handleLimit}
+            onOffsetChange={handleOffset}
+            isCreate={isCreate}
+            setCreate={setCreate}
+          />
         )}
-      </div>
+      </section>
     </div>
   )
 }
