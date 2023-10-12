@@ -3,6 +3,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Task } from "../schemas/task.schema";
 import { EditTaskDto, CreateTaskDto } from "./dtos";
+import { PaginationDto } from "./dtos/pagination.dto";
 
 @Injectable()
 export class TasksService {
@@ -17,8 +18,18 @@ export class TasksService {
     }
   }
 
-  async getListOfTasks() {
-    return this.taskModel.find({}, this.commonProjection) || [];
+  async getListOfTasks(dto: PaginationDto) {
+    return (
+      this.taskModel.find({}, this.commonProjection, {
+        limit: dto.limit,
+        skip: dto.offset,
+        sort: { createdAt: -1 },
+      }) || []
+    );
+  }
+
+  async getCount() {
+    return this.taskModel.count({});
   }
 
   async editTask(dto: EditTaskDto) {

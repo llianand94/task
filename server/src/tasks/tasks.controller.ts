@@ -6,16 +6,23 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from "@nestjs/common";
 import { TasksService } from "./tasks.service";
 import { CreateTaskDto, EditTaskDto } from "./dtos";
+import { PaginationDto } from "./dtos/pagination.dto";
 
 @Controller("tasks")
 export class TasksController {
   constructor(private taskService: TasksService) {}
   @Get()
-  async getListOfTasks() {
-    return await this.taskService.getListOfTasks();
+  async getListOfTasks(@Query() query: PaginationDto) {
+    return await this.taskService.getListOfTasks(query);
+  }
+
+  @Get("count")
+  async getCount() {
+    return await this.taskService.getCount();
   }
 
   @Post()
