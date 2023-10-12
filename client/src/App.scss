@@ -2,6 +2,8 @@
 
 .App {
   width: 750px;
+  min-height: 100vh;
+  height: 100%;
   margin: 0 auto;
   padding: 10px 0;
   background-color: $body-color;

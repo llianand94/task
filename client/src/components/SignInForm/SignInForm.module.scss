@@ -1,0 +1,37 @@
+@import '../../common/styles/templates';
+@import '../../common/styles/variables';
+
+.container{
+  @include card;
+  flex-direction: column;
+  min-height: 150px;
+}
+
+.input{
+  margin-bottom: 1rem;
+  padding: 0.4rem;
+  outline: 1px solid $white-color;
+  border: 1px solid $white-color;
+}
+
+
+.btn-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.card-btn {
+  @include common-btn;
+  margin: 0;
+
+  &:first-child {
+    margin-right: 20px;
+  }
+}
+
+.valid{
+  border: 1px solid rgb(99, 192, 111);
+}
+.invalid{
+  border: 1px solid rgb(199, 94, 94);
+}

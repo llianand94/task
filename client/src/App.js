@@ -1,16 +1,35 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { BrowserRouter, NavLink, Routes, Route } from 'react-router-dom'
 import './App.scss'
-import Todo from './components/Todo'
-
-const queryClient = new QueryClient();
+import SignInPage from './pages/signInPage'
+import TodoPage from './pages/todoPage'
 
 function App () {
+  const queryClient = new QueryClient()
   return (
-    <div className='App'>
-      <QueryClientProvider client={queryClient}>
-        <Todo />
-      </QueryClientProvider>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+      <article className='App'>
+         <h1>My Appi Header</h1>
+        <nav>
+          <ul>
+            <li>
+              <NavLink to='/tasks'>Tasks Page</NavLink>
+            </li>
+            <li>
+              <NavLink to='/'>Users Page</NavLink>
+            </li>
+          </ul>
+        </nav> 
+
+        <Routes>
+          <Route path='/tasks' element={<TodoPage />} />
+          <Route path='/' element={<SignInPage />} />
+        </Routes>
+      </article>
+    </BrowserRouter>
+    </QueryClientProvider>
+    
   )
 }
 

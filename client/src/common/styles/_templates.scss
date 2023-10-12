@@ -20,8 +20,8 @@
 @mixin card {
   @include list-style;
   display: flex;
-  min-width: 300px;
   width: 500px;
+  min-height: 250px;
   margin: 5px auto;
   padding: 1em;
   border: 2px $background-color solid;
