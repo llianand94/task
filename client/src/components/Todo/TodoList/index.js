@@ -1,6 +1,6 @@
 import React from 'react'
-import TodoCard from '../TodoCard'
-import TodoForm from '../TodoForm'
+import TodoCard from './TodoCard'
+import TodoForm from './TodoForm'
 import styles from './TodoList.module.scss'
 
 const TodoList = ({
@@ -19,6 +19,7 @@ const TodoList = ({
           key={item._id}
         />
       ))}
+      
     </ol>
   )
 }

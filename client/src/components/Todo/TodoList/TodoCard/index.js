@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import styles from './TodoCard.module.scss'
-import DataList from '../DataList'
-import CONSTANTS from '../../common/constants.js'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { deleteTask, updateTask } from '../../api/taskApi'
+import styles from './TodoCard.module.scss'
+import DataList from '../../../DataList'
+import CONSTANTS from '../../../../common/constants'
+import { deleteTask, updateTask } from '../../../../api/taskApi'
 
 const TodoCard = ({ item }) => {
   const [editable, setEditable] = useState(false)

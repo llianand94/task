@@ -1,9 +1,11 @@
 import styles from './Todo.module.scss'
 import React, { useState } from 'react'
-import TodoList from '../TodoList'
-import CreateTodo from '../CreateTodo'
+
+
 import { getTasks } from '../../api/taskApi'
 import { useQuery } from '@tanstack/react-query'
+import TodoList from './TodoList'
+import CreateTodoBtn from './CreateTodoBtn'
 
 const Todo = () => {
   const [isCreate, setCreate] = useState(false)
@@ -28,7 +30,7 @@ const Todo = () => {
     <div className={styles.todo}>
       <header className={styles.header}>
         <h1> TO-DO List</h1>
-        <CreateTodo addButton={addButton} />
+        <CreateTodoBtn addButton={addButton} />
       </header>
 
       <div>

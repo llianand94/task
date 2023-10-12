@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import styles from './TodoForm.module.scss'
-import CONSTANTS from '../../common/constants'
-import DataList from '../DataList'
-import { postTask } from '../../api/taskApi'
+import CONSTANTS from '../../../../common/constants'
+import DataList from '../../../DataList'
+import { postTask } from '../../../../api/taskApi'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 function TodoForm ({ onCreateHandler, setCreate }) {

@@ -1,7 +1,7 @@
 import React from 'react';
-import './CreateTodo.scss';
+import './CreateTodoBtn.scss';
 
-const CreateTodo = ({ addButton }) => {
+const CreateTodoBtn = ({ addButton }) => {
   return (
     <button className='add-btn' onClick={() => addButton()}>
       Create task
@@ -9,4 +9,4 @@ const CreateTodo = ({ addButton }) => {
   )
 }
 
-export default CreateTodo
+export default CreateTodoBtn
