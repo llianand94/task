@@ -10,7 +10,7 @@ function App () {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
       <article className='App'>
-         <h1>My Appi Header</h1>
+         <h1>My Appi Navigation Bar</h1>
         <nav>
           <ul>
             <li>

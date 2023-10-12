@@ -29,9 +29,8 @@
   }
 }
 
-.valid{
-  border: 1px solid rgb(99, 192, 111);
-}
-.invalid{
-  border: 1px solid rgb(199, 94, 94);
+.error {
+  width: max-content;
+  margin: 10px auto 0;
+  background-color: $white-color;
 }

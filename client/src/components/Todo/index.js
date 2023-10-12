@@ -1,13 +1,22 @@
 import styles from './Todo.module.scss'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { getTasks } from '../../api/taskApi'
 import { useQuery } from '@tanstack/react-query'
 import TodoList from './TodoList'
 import CreateTodoBtn from './CreateTodoBtn'
 import Header from '../Header'
+import { useNavigate } from 'react-router-dom'
 
 const Todo = () => {
+  const userId = localStorage.getItem("userId");
+  const navigate = useNavigate()
+  
+  useEffect(()=> {
+    if (!userId) {
+      navigate('/')
+      alert("Please sign-in before managing tasks", null)
+    }})
   const [limit, setLimit] = useState(2) //totalTasksOnPage
   const [offset, setOffset] = useState(0)
   const [isCreate, setCreate] = useState(false)

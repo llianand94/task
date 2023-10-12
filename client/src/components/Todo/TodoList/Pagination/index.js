@@ -10,7 +10,6 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     return pageNumbers
   }
 
-  console.log('==>>', styles)
   const renderPageNumbers = getPageNumbers().map(number => {
     return (
       <li
