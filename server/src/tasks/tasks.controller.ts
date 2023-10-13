@@ -7,15 +7,18 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from "@nestjs/common";
 import { TasksService } from "./tasks.service";
 import { CreateTaskDto, EditTaskDto } from "./dtos";
 import { PaginationDto } from "./dtos/pagination.dto";
+import { AuthGuard } from "src/auth/guards/auth.guard";
 
 @Controller("tasks")
 export class TasksController {
   constructor(private taskService: TasksService) {}
   @Get()
+  @UseGuards(AuthGuard)
   async getListOfTasks(@Query() query: PaginationDto) {
     return await this.taskService.getListOfTasks(query);
   }
