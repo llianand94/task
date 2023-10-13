@@ -4,8 +4,12 @@ const taskApi = axios.create({
   baseURL: process.env.REACT_APP_BACK_URL + "/tasks"
 })
 
-export const getTasks = async (limit,offset) => {
-  const { data } = await taskApi.get(`?limit=${limit}&offset=${offset}`)
+export const getTasks = async (limit,offset,token) => {
+  const { data } = await taskApi.get(`?limit=${limit}&offset=${offset}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
   return data
 }
 

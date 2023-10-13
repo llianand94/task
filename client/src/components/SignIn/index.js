@@ -1,27 +1,28 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import styles from './SignIn.module.scss'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { authSchema } from '../../schemas/validationFormik'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { signIn, signUp } from '../../api/authApi'
+import { ErrorContext } from '../../App'
 
 const SingIn = () => {
   const navigate = useNavigate()
-  const [error, setError] = useState(null)
+  const { error, errorHandler } = useContext(ErrorContext)
 
   const handlerSettled = data => {
     if (data && !data.response) {
-      localStorage.setItem('userId', data._id)
+      localStorage.setItem('token', data.token)
       navigate('/tasks')
       return
     } else if (data.response.status >= 400) {
-      setError(data.message)
+      errorHandler(data.message)
       return
     }
   }
   const handleSubmit = (values, actions) => {
-    setError(null)
+    errorHandler(null)
     if (values.action === 'SIGN_IN') {
       signInQuery.mutate(values)
       actions.resetForm()
@@ -43,7 +44,7 @@ const SingIn = () => {
         initialValues={{ email: '', password: '', action: '' }}
         validationSchema={authSchema}
         onSubmit={handleSubmit}
-        on={() => setError(null)}
+        on={() => errorHandler(null)}
       >
         {({ submitForm, values, isValid }) => {
           return (

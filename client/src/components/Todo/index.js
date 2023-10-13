@@ -9,11 +9,11 @@ import Header from '../Header'
 import { useNavigate } from 'react-router-dom'
 
 const Todo = () => {
-  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
   const navigate = useNavigate()
   
   useEffect(()=> {
-    if (!userId) {
+    if (!token) {
       navigate('/')
       alert("Please sign-in before managing tasks", null)
     }})
@@ -28,7 +28,7 @@ const Todo = () => {
     error
   } = useQuery(
     ['tasks', limit, offset],
-    () => getTasks(limit, offset), 
+    () => getTasks(limit, offset, token), 
     {
       keepPreviousData: true
     })
